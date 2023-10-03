@@ -2,9 +2,13 @@
 const express = require('express');
 const router = express.Router();
 const UserController = require('../controllers/user.controller');
+const { verifyJwtAuth } = require('../middleware/auth.middleware');
 
 // Create a new user
 router.post('/', UserController.createUser);
+
+// Update a new user
+router.put('/', verifyJwtAuth, UserController.updateUser);
 
 // Get all users
 router.get('/', UserController.getAllUsers);
