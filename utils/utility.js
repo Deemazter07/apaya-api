@@ -36,9 +36,38 @@ function isPhoneFormat(phone) {
   return phoneRegex.test(phone);
 }
 
+function getPagination(pageNumber, pageSize) {
+  let offset = +pageNumber - 1;
+  const limit = +pageSize;
+
+  if (offset >= 1) {
+    offset = offset * limit;
+  }
+
+  return { offset, limit };
+}
+
+function getPagingData(data, pageNumber, pageSize) {
+  const { count: totalItems, rows } = data;
+
+  const totalPages = Math.ceil(totalItems / +pageSize);
+
+  const returnData = {
+    currentPage: +pageNumber,
+    currentItems: rows.length,
+    totalPages,
+    totalItems,
+    rows,
+  };
+
+  return returnData;
+}
+
 module.exports = {
   formatPhoneNumber,
   isEmpty,
   isEmailFormat,
   isPhoneFormat,
+  getPagination,
+  getPagingData,
 };

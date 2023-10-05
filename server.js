@@ -4,12 +4,14 @@ const express = require("express");
 const app = express();
 const { ENV } = require("./utils/env");
 const apiRoutes = require('./routes');
+const path = require('path');
 
 const PORT = ENV.PORT
 
-// Middleware
+// reading public folder
+app.use(express.static(path.resolve('./public')));
+
 app.use(express.json());
-// Add any other middleware you need, like authentication middleware
 
 // Routes
 app.use('/', apiRoutes);

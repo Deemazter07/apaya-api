@@ -7,6 +7,9 @@ const AppError = require("../utils/AppError");
 async function verifyJwtAuth(req, res, next) {
   try {
     const { authorization } = req.headers
+    if (!authorization) {
+      throw new AppError(401, "Unauthorized!")
+    }
     const bearer = authorization.split(" ")
     const bearerToken = bearer[1]
 
